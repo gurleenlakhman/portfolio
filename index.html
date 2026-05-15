@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gurleen Kaur — Neuroscience x ML x Clinical AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#1a1b26;
+  --bg2:#1f2130;
+  --bg3:#252840;
+  --surface:#222438;
+  --surface2:#2a2d48;
+  --border:rgba(167,139,250,.1);
+  --border2:rgba(167,139,250,.2);
+  --lav:#a78bfa;
+  --lav2:#7c5cdb;
+  --lav3:#c4b5fd;
+  --lav-dim:rgba(167,139,250,.12);
+  --text:#e2e4f0;
+  --text2:#8b8fad;
+  --text3:#4a4e6b;
+  --sage:#6db8a4;
+  --sage-dim:rgba(109,184,164,.1);
+  --gold:#e0b86e;
+  --gold-dim:rgba(224,184,110,.1);
+  --blue:#60a5fa;
+  --blue-dim:rgba(96,165,250,.1);
+  --rose:#f472b6;
+  --rose-dim:rgba(244,114,182,.1);
+  --violet:#c084fc;
+  --violet-dim:rgba(192,132,252,.1);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',sans-serif;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+#cur{position:fixed;width:7px;height:7px;background:var(--lav);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .08s;mix-blend-mode:screen}
+#cur-r{position:fixed;width:28px;height:28px;border:1px solid var(--lav);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5;transition:width .18s,height .18s,opacity .18s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(26,27,38,.92);backdrop-filter:blur(20px)}
+.nm{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--text);text-decoration:none;letter-spacing:-.01em;flex-shrink:0}
+.nm span{color:var(--lav)}
+.nl{display:flex;gap:20px;list-style:none;flex-wrap:nowrap}
+.nl a{font-family:var(--mono);font-size:10px;color:var(--text2);text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.nl a:hover,.nl a.act{color:var(--lav)}
+
+/* HERO */
+#hero{display:flex;flex-direction:column;padding:108px 60px 64px;overflow:hidden;position:relative}
+.hs{pointer-events:none;user-select:none;margin-bottom:40px;position:relative;z-index:1}
+.hw{font-family:var(--serif);font-size:clamp(66px,10.5vw,168px);font-weight:700;line-height:.9;letter-spacing:-.03em;color:var(--text)}
+.hw.it{font-style:italic;color:var(--lav)}
+.hw.out{-webkit-text-stroke:1.5px rgba(167,139,250,.5);color:transparent}
+.hw.sm{font-size:clamp(28px,4vw,64px);font-weight:400;font-style:italic;color:var(--text2)}
+.hcontact{border-top:1px solid var(--border);padding-top:24px;display:flex;flex-direction:column;gap:14px;position:relative;z-index:1}
+.hcontact-label{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.18em;text-transform:uppercase}
+.hcontact-links{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
+.hcontact-email{font-family:var(--mono);font-size:14px;color:var(--text);text-decoration:none;transition:color .2s}
+.hcontact-email:hover{color:var(--lav)}
+.hcl{font-family:var(--mono);font-size:12px;text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:4px}
+.hcl.li{color:var(--blue)}.hcl.li:hover{color:#93c5fd}
+.hcl.gh{color:var(--lav)}.hcl.gh:hover{color:var(--lav3)}
+.hcl.md{color:var(--sage)}.hcl.md:hover{color:#86efcb}
+
+/* GLOW ORBS */
+.orb{position:fixed;border-radius:50%;pointer-events:none;filter:blur(100px);opacity:.07;z-index:0}
+.orb1{width:600px;height:600px;background:var(--lav);top:-200px;right:-100px}
+.orb2{width:400px;height:400px;background:var(--sage);bottom:20%;left:-100px}
+.orb3{width:300px;height:300px;background:var(--blue);top:40%;left:50%;opacity:.05}
+
+/* SECTION */
+.sec{padding:110px 60px;max-width:1240px;margin:0 auto}
+hr.r{border:none;border-top:1px solid var(--border)}
+.eye{font-family:var(--mono);font-size:10px;color:var(--lav);letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:14px}
+.eye::before{content:attr(data-n);color:var(--text3)}
+.sh{font-family:var(--serif);font-size:clamp(38px,5vw,72px);font-weight:600;letter-spacing:-.02em;line-height:1;margin-bottom:14px}
+.sh em{font-style:italic;color:var(--lav)}
+.sp{font-family:var(--sans);font-size:15px;color:var(--text2);font-weight:300;max-width:480px;line-height:1.75;margin-bottom:64px}
+
+/* ABOUT */
+.ag{display:grid;grid-template-columns:1.1fr 1fr;gap:88px;align-items:start}
+.at p{font-family:var(--sans);font-size:16px;color:var(--text2);line-height:1.85;margin-bottom:20px;font-weight:300}
+.at p strong{color:var(--text);font-weight:400}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.chip{font-family:var(--mono);font-size:10px;padding:5px 13px;border-radius:2px;border:1px solid var(--border2);color:var(--text2)}
+.chip.l{border-color:rgba(167,139,250,.35);color:var(--lav3);background:rgba(167,139,250,.06)}
+.chip.s{border-color:rgba(109,184,164,.35);color:var(--sage);background:rgba(109,184,164,.06)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.fact{background:var(--surface);border:1px solid var(--border);padding:26px;display:flex;flex-direction:column;gap:6px;transition:background .2s,border-color .2s}
+.fact:hover{background:var(--surface2);border-color:var(--border2)}
+.fn{font-family:var(--serif);font-size:44px;font-weight:600;color:var(--lav);line-height:1}
+.fl{font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:.08em;text-transform:uppercase}
+.fd{font-family:var(--sans);font-size:12px;color:var(--text3);font-weight:300;line-height:1.45;margin-top:2px}
+
+/* RESEARCH */
+.rg{display:flex;flex-direction:column;gap:2px}
+.rc{background:var(--surface);border:1px solid var(--border);padding:40px;position:relative;overflow:hidden;transition:background .25s,border-color .25s}
+.rc:hover{background:var(--surface2);border-color:rgba(109,184,164,.3)}
+.rc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--sage);transform:scaleY(0);transform-origin:bottom;transition:transform .4s ease}
+.rc:hover::before{transform:scaleY(1)}
+.rm{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.rlab{font-family:var(--mono);font-size:10px;color:var(--sage);letter-spacing:.09em;text-transform:uppercase}
+.rdate{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.rtit{font-family:var(--serif);font-size:clamp(20px,2.3vw,30px);font-weight:600;letter-spacing:-.02em;margin-bottom:6px;line-height:1.15}
+.rsup{font-family:var(--sans);font-size:13px;color:var(--text3);margin-bottom:22px}
+.rb{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rb li{font-family:var(--sans);font-size:14px;color:var(--text2);padding-left:16px;position:relative;line-height:1.65;font-weight:300}
+.rb li::before{content:'›';position:absolute;left:0;color:var(--sage);font-size:14px;line-height:1.55}
+.rtags{display:flex;flex-wrap:wrap;gap:7px;margin-top:24px}
+.rt{font-family:var(--mono);font-size:10px;padding:4px 10px;border-radius:2px;border:1px solid var(--border2);color:var(--text3)}
+.rt.l{border-color:rgba(109,184,164,.3);color:var(--sage);background:rgba(109,184,164,.07)}
+.rt.v{border-color:rgba(167,139,250,.3);color:var(--lav3);background:rgba(167,139,250,.07)}
+.awd{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:8px 16px;background:rgba(224,184,110,.08);border:1px solid rgba(224,184,110,.25);border-radius:2px;font-family:var(--mono);font-size:11px;color:var(--gold)}
+#research .eye{color:var(--sage)}
+#research .sh em{color:var(--sage)}
+
+/* NEURAL CANVAS */
+#skills{background:var(--bg2);padding:0}
+.sk-h{max-width:1240px;margin:0 auto;padding:110px 60px 48px}
+.sk-h .eye{color:var(--lav)}
+.sk-h .sh{color:var(--text)}
+.sk-h .sp{color:var(--text3)}
+#nc{width:100%;height:560px;display:block}
+.sk-leg{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;border-top:1px solid var(--border);padding:0 60px}
+.li{flex:1;min-width:170px;padding:22px 24px 22px 0;border-right:1px solid var(--border)}
+.li:last-child{border-right:none}
+.li-dot{width:7px;height:7px;border-radius:50%;margin-bottom:9px}
+.li-name{font-family:var(--mono);font-size:10px;color:var(--text);letter-spacing:.07em;margin-bottom:6px;text-transform:uppercase}
+.li-s{font-family:var(--sans);font-size:12px;color:var(--text3);line-height:1.7}
+
+/* PROJECTS */
+.pf-w{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:48px}
+.pf{font-family:var(--mono);font-size:10px;padding:7px 16px;border-radius:2px;border:1px solid var(--border2);background:transparent;color:var(--text3);cursor:none;letter-spacing:.07em;text-transform:uppercase;transition:all .2s}
+.pf:hover,.pf.on{background:var(--gold-dim);color:var(--gold);border-color:rgba(224,184,110,.4)}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.pc{background:var(--surface);border:1px solid var(--border);padding:32px;display:flex;flex-direction:column;transition:all .25s;position:relative;overflow:hidden}
+.pc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.pc:hover{background:var(--surface2);border-color:rgba(224,184,110,.3);transform:translateY(-3px)}
+.pc:hover::after{transform:scaleX(1)}
+.pc.feat{grid-column:span 2;background:var(--surface2)}
+.pe{font-family:var(--mono);font-size:9px;color:var(--gold);letter-spacing:.13em;text-transform:uppercase;margin-bottom:12px}
+.pt{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.01em;margin-bottom:10px;line-height:1.2}
+.pd{font-family:var(--sans);font-size:14px;color:var(--text2);line-height:1.7;font-weight:300;flex:1;margin-bottom:20px}
+.pfoot{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--border)}
+.pstack{display:flex;flex-wrap:wrap;gap:5px}
+.ptag{font-family:var(--mono);font-size:9px;padding:3px 8px;background:var(--bg);border:1px solid var(--border);border-radius:2px;color:var(--text3)}
+.pgh{font-family:var(--mono);font-size:11px;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:5px;transition:gap .2s;white-space:nowrap}
+.pgh:hover{gap:9px}
+.wip{font-family:var(--mono);font-size:9px;padding:3px 8px;background:rgba(224,184,110,.08);border:1px solid rgba(224,184,110,.2);border-radius:2px;color:var(--gold)}
+#projects .eye{color:var(--gold)}
+#projects .sh em{color:var(--gold)}
+
+/* JOURNEY */
+#journey{background:var(--bg2);padding:110px 0 80px}
+.tl-h{max-width:1240px;margin:0 auto;padding:0 60px 52px}
+.tl-s{overflow-x:auto;padding:0 60px 40px;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.tl-t{display:flex;min-width:max-content;border-top:1px solid var(--border2)}
+.ti{padding:26px 34px 34px;border-right:1px solid var(--border);min-width:255px;flex-shrink:0;position:relative}
+.ti::before{content:'';position:absolute;top:-5px;left:34px;width:8px;height:8px;border-radius:50%;background:var(--bg2);border:2px solid var(--lav)}
+.ti.wk::before{border-color:var(--blue)}
+.ti-yr{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.09em;margin-bottom:12px}
+.ti-role{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:-.01em;margin-bottom:4px;line-height:1.2}
+.ti-org{font-family:var(--mono);font-size:11px;color:var(--lav);margin-bottom:8px}
+.ti-org.s{color:var(--blue)}
+.ti-body{font-family:var(--sans);font-size:13px;color:var(--text3);line-height:1.6;font-weight:300}
+#journey .eye{color:var(--blue)}
+#journey .sh em{color:var(--blue)}
+
+/* WRITING */
+.wg{display:flex;flex-direction:column;gap:2px}
+.wc{background:var(--surface);border:1px solid var(--border);padding:28px 36px;display:flex;justify-content:space-between;align-items:flex-start;gap:28px;transition:all .2s}
+.wc:hover{background:var(--surface2);border-color:rgba(244,114,182,.3);transform:translateX(6px)}
+.wtype{font-family:var(--mono);font-size:9px;color:var(--rose);letter-spacing:.13em;text-transform:uppercase;margin-bottom:7px}
+.wc h3{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.01em;margin-bottom:5px;line-height:1.25}
+.wc p{font-family:var(--sans);font-size:13px;color:var(--text2);line-height:1.55;font-weight:300}
+.wlink{font-family:var(--mono);font-size:11px;color:var(--rose);text-decoration:none;white-space:nowrap;display:flex;align-items:center;gap:5px;flex-shrink:0;padding-top:2px;transition:gap .2s}
+.wlink:hover{gap:9px}
+#writing .eye{color:var(--rose)}
+#writing .sh em{color:var(--rose)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:20px 60px;display:flex;justify-content:space-between}
+.fa,.fb{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.05em}
+.clink{font-family:var(--mono);font-size:12px;padding:10px 22px;border:1px solid var(--border2);color:var(--text2);text-decoration:none;border-radius:2px;display:flex;align-items:center;gap:8px;transition:all .2s;justify-content:center}
+.clink.li:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-dim)}
+.clink.gh:hover{border-color:var(--lav);color:var(--lav);background:var(--lav-dim)}
+.clink.md:hover{border-color:var(--sage);color:var(--sage);background:var(--sage-dim)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:var(--lav2)}
+
+@media(max-width:900px){
+  nav{padding:16px 24px}.nl{display:none}
+  #hero,.sec,.sk-h,.sk-leg,.tl-h{padding-left:24px;padding-right:24px}
+  #hero{padding-top:80px}
+  .ag{grid-template-columns:1fr;gap:44px}
+  .pg{grid-template-columns:1fr}.pc.feat{grid-column:span 1}
+  .tl-s{padding:0 24px 40px}
+  footer{padding:18px 24px}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nm">G<span>.</span>K</a>
+  <ul class="nl">
+    <li><a href="#about">About</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#writing">Writing</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hs">
+    <div class="hw">NEURO</div>
+    <div class="hw it">science</div>
+    <div class="hw out">x ML</div>
+    <div class="hw sm">x clinical ai</div>
+  </div>
+  <div class="hcontact">
+    <span class="hcontact-label">Contact</span>
+    <div class="hcontact-links">
+      <a href="mailto:gurleenlakhman@gmail.com" class="hcontact-email">gurleenlakhman@gmail.com</a>
+      <a href="https://www.linkedin.com/in/gurleen-lakhman" target="_blank" class="hcl li">LinkedIn ↗</a>
+      <a href="https://github.com/gurleenlakhman" target="_blank" class="hcl gh">GitHub ↗</a>
+      <a href="https://medium.com/@lakhmangurleen" target="_blank" class="hcl md">Medium ↗</a>
+    </div>
+  </div>
+</section>
+<hr class="r">
+
+<!-- ABOUT -->
+<section id="about" class="sec">
+  <div class="eye rv" data-n="01">About</div>
+  <h2 class="sh rv">The human<br>behind the <em>models.</em></h2>
+  <div class="ag">
+    <div class="at rv">
+      <p>I am a <strong>data scientist and ML researcher</strong> based in Vancouver, BC, currently in my MDS at UBC while contributing to three research labs across biomedical engineering, neuropathology, and addiction psychiatry.</p>
+      <p>My background spans <strong>electronics engineering, health informatics, and data science.</strong> That combination gives me the rigour to build robust ML pipelines and the domain knowledge to make them clinically meaningful.</p>
+      <p>Whether it is 6DOF VR sensor streams from Alzheimer's patients, post-mortem IHC brain slides, or large-scale health claims, I am drawn to data that sits at the edge of what medicine can currently see.</p>
+      <p>Outside the lab: hiking the North Shore mountains, lifting heavy things.</p>
+      <div class="chips">
+        <span class="chip l">Neuroscience x ML</span>
+        <span class="chip l">Clinical AI</span>
+        <span class="chip s">MDS at UBC 2026</span>
+        <span class="chip s">Vancouver, BC</span>
+        <span class="chip">Open to roles</span>
+      </div>
+    </div>
+    <div class="facts rv">
+      <div class="fact"><span class="fn" style="color:var(--lav)">3</span><span class="fl">Active Research Labs</span><span class="fd">NC4, Hirsch-Reinshagen, ACD at UBC</span></div>
+      <div class="fact"><span class="fn" style="color:var(--sage)">3+</span><span class="fl">Years in Industry</span><span class="fd">Ronsare, KPMG India, In-Med</span></div>
+      <div class="fact"><span class="fn" style="color:var(--gold)">91.6%</span><span class="fl">Best Model Accuracy</span><span class="fd">Random Forest on cardiac EMR at KPMG</span></div>
+      <div class="fact"><span class="fn" style="color:var(--rose)">&#127942;</span><span class="fl">Best Oral Presentation</span><span class="fd">PATHS Neuroscience Conference, UBC</span></div>
+    </div>
+  </div>
+</section>
+<hr class="r">
+
+<!-- RESEARCH -->
+<section id="research" class="sec">
+  <div class="eye rv" data-n="02">Research</div>
+  <h2 class="sh rv">Active <em>Research.</em></h2>
+  <p class="sp rv">Three concurrent positions at UBC spanning cognitive neuroscience, neuropathology, and addiction psychiatry.</p>
+  <div class="rg">
+    <div class="rc rv">
+      <div class="rm"><span class="rlab">NC4 Lab — Neural Circuits for Computation, Cognition and Control</span><span class="rdate">Apr 2026 – Present</span></div>
+      <h3 class="rtit">Cognitive Decline Detection via VR Spatial Navigation</h3>
+      <p class="rsup">Supervisor: Dr. Manu Madhav · UBC Biomedical Engineering</p>
+      <ul class="rb">
+        <li>Building an ML pipeline on VR spatial navigation data to detect early markers of cognitive decline and Alzheimer's, working with 6DOF sensor streams (head orientation, avatar position, controller quaternions) from 45 participants.</li>
+        <li>XGBoost classifiers with handcrafted movement features (angular velocity, heading drift, rotation smoothness) alongside transformer-based sequence models for time-series classification.</li>
+        <li>Functional PCA and Dynamic Time Warping for feature extraction on variable-length multivariate time series.</li>
+      </ul>
+      <div class="rtags"><span class="rt l">XGBoost</span><span class="rt l">Transformer</span><span class="rt l">Time Series</span><span class="rt l">fPCA</span><span class="rt l">DTW</span><span class="rt">Alzheimer's</span><span class="rt">6DOF VR</span></div>
+    </div>
+    <div class="rc rv">
+      <div class="rm"><span class="rlab">Hirsch-Reinshagen Lab — Neuropathology and CNS Disorders</span><span class="rdate">Mar 2026 – Present</span></div>
+      <h3 class="rtit">Computational IHC Analysis for CNS Disorders</h3>
+      <p class="rsup">Supervisor: Dr. Veronica Hirsch-Reinshagen · UBC Pathology / VGH</p>
+      <ul class="rb">
+        <li>Computational image analysis of multiplexed IHC slides from post-mortem human brain tissue using QuPath for cell segmentation and stain colocalization.</li>
+        <li>ML pipelines for automated spatial profiling of protein markers across brain regions in neurodegeneration and traumatic spinal cord injury.</li>
+      </ul>
+      <div class="rtags"><span class="rt v">QuPath</span><span class="rt v">IHC Analysis</span><span class="rt v">Cell Segmentation</span><span class="rt">Neurodegeneration</span><span class="rt">Spinal Cord Injury</span></div>
+    </div>
+    <div class="rc rv">
+      <div class="rm"><span class="rlab">ACD Research Group — Addictions and Concurrent Disorders</span><span class="rdate">Nov 2025 – Present</span></div>
+      <h3 class="rtit">Opioid Overdose, ABI and Fentanyl Clustering</h3>
+      <p class="rsup">Supervisor: Dr. Michael Krausz · UBC Psychiatry</p>
+      <ul class="rb">
+        <li>Co-authoring a paper on opioid overdose and acquired brain injury — systematic review, data extraction, and full manuscript writing.</li>
+        <li>Research on fentanyl overdose clustering and temporal patterns of overdose events across vulnerable populations.</li>
+        <li>Presented systematic review on stimulant co-use in opioid agonist therapy at the PATHS To A Cure Neuroscience Conference, UBC.</li>
+      </ul>
+      <div class="rtags"><span class="rt">Systematic Review</span><span class="rt">Epidemiology</span><span class="rt">Opioid ABI</span><span class="rt">Fentanyl Clustering</span></div>
+      <div class="awd">&#127942; Best Oral Presentation — PATHS To A Cure Neuroscience Conference, UBC</div>
+    </div>
+  </div>
+</section>
+<hr class="r">
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sk-h">
+    <div class="eye rv" data-n="03">Skills</div>
+    <h2 class="sh rv">Technical <em>Stack.</em></h2>
+    <p class="sp rv">Hover a cluster to illuminate its connections. Each node is a skill.</p>
+  </div>
+  <canvas id="nc"></canvas>
+  <div class="sk-leg">
+    <div class="li"><div class="li-dot" style="background:#a78bfa"></div><div class="li-name">Languages</div><div class="li-s">Python · R · SQL · C · Bash</div></div>
+    <div class="li"><div class="li-dot" style="background:#6db8a4"></div><div class="li-name">ML and AI</div><div class="li-s">XGBoost · LightGBM · Transformers · Time Series</div></div>
+    <div class="li"><div class="li-dot" style="background:#e0b86e"></div><div class="li-name">Libraries</div><div class="li-s">PyTorch · scikit-learn · pandas · OpenCV · tslearn</div></div>
+    <div class="li"><div class="li-dot" style="background:#c084fc"></div><div class="li-name">Clinical and Pathology</div><div class="li-s">EHR/EMR · IHC · QuPath · Epidemiology</div></div>
+    <div class="li"><div class="li-dot" style="background:#60a5fa"></div><div class="li-name">Tools and Cloud</div><div class="li-s">Git · Docker · GCP · AWS · PostgreSQL</div></div>
+  </div>
+</section>
+<hr class="r">
+
+<!-- PROJECTS -->
+<section id="projects" class="sec">
+  <div class="eye rv" data-n="04">Projects</div>
+  <h2 class="sh rv">Personal <em>Projects.</em></h2>
+  <p class="sp rv">Independent builds, coursework, and capstone work — separate from lab research.</p>
+  <div class="pf-w rv">
+    <button class="pf on" onclick="fp('all',this)">All</button>
+    <button class="pf" onclick="fp('ml',this)">ML / AI</button>
+    <button class="pf" onclick="fp('drug',this)">Drug Discovery</button>
+    <button class="pf" onclick="fp('neuro',this)">Neuro / Imaging</button>
+    <button class="pf" onclick="fp('clinical',this)">Clinical</button>
+  </div>
+  <div class="pg" id="pg">
+
+    <div class="pc feat rv" data-t="ml clinical">
+      <div class="pe">Capstone 2026 · MDS at UBC</div>
+      <h3 class="pt">INSPECT: Multimodal Pulmonary Embolism Prediction</h3>
+      <p class="pd">Reproducing Stanford's INSPECT benchmark — a late-fusion pipeline combining CTPA deep learning (LRCN: ResNet encoder + GRU sequence model) with structured EHR data (LightGBM) to predict PE and 8 downstream clinical outcomes. Trained on GCP with GCS storage.</p>
+      <div class="pfoot">
+        <div class="pstack"><span class="ptag">PyTorch</span><span class="ptag">LightGBM</span><span class="ptag">GCP</span><span class="ptag">CTPA</span><span class="ptag">EHR</span></div>
+        <a href="https://github.com/tandem-group-dev/capstone-2026-mds-v" target="_blank" class="pgh">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="pc rv" data-t="ml drug">
+      <div class="pe">Drug Discovery · Personal Project</div>
+      <h3 class="pt">Molecular Binding Affinity and Uncertainty</h3>
+      <p class="pd">Predicts pChEMBL binding affinity against EGFR (cancer-relevant kinase) using 13k ChEMBL molecules. Compares Morgan fingerprint MLP vs Graph Attention Network (3-feature and 7-feature). MC Dropout uncertainty quantification on both models. Scaffold-split evaluation.</p>
+      <div class="pfoot">
+        <div class="pstack"><span class="ptag">PyTorch Geometric</span><span class="ptag">GAT</span><span class="ptag">MC Dropout</span><span class="ptag">Optuna</span></div>
+        <a href="https://github.com/gurleenlakhman/molecular-binding-affinity-uncertainty" target="_blank" class="pgh">GitHub ↗</a>
+      </div>
+    </div>
+
+    <div class="pc rv" data-t="ml neuro">
+      <div class="pe">Personal Project · In Progress</div>
+      <h3 class="pt">BrainMRI-Net: Alzheimer's Classification</h3>
+      <p class="pd">3-class MRI classification (Cognitively Normal, MCI, Alzheimer's) on the OASIS-1 dataset. CNN pipeline with Grad-CAM interpretability for radiologist-friendly visualisation. Subject-level splits to prevent data leakage.</p>
+      <div class="pfoot">
+        <div class="pstack"><span class="ptag">PyTorch</span><span class="ptag">Grad-CAM</span><span class="ptag">OASIS-1</span><span class="ptag">CNN</span><span class="wip">In Progress</span></div>
+        <a href="https://github.com/gurleenlakhman/BrainMRI-Net" target="_blank" class="pgh">GitHub ↗</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+<hr class="r">
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="tl-h">
+    <div class="eye rv" data-n="05">Journey</div>
+    <h2 class="sh rv">Education and <em>Experience.</em></h2>
+  </div>
+  <div class="tl-s rv">
+    <div class="tl-t">
+      <div class="ti"><div class="ti-yr">Jul 2018</div><div class="ti-role">BTech Electronics and Telecom (AI)</div><div class="ti-org">MIT Pune · India</div><div class="ti-body">Foundation in signal processing, circuits, and AI specialisation.</div></div>
+      <div class="ti wk"><div class="ti-yr">Oct 2020</div><div class="ti-role">Data Scientist</div><div class="ti-org s">KPMG India · New Delhi</div><div class="ti-body">EMR/EHR analytics, heart disease prediction (91.6% accuracy), brain CT/MRI preprocessing pipelines.</div></div>
+      <div class="ti wk"><div class="ti-yr">Mar 2021</div><div class="ti-role">R&amp;D Intern</div><div class="ti-org s">In-Med Prognostics · Pune</div><div class="ti-body">Brain CT alignment pipeline for ~100 patients. Anatomical axis standardisation for downstream analysis.</div></div>
+      <div class="ti wk"><div class="ti-yr">Jun 2022</div><div class="ti-role">Data Scientist</div><div class="ti-org s">Ronsare Research · Remote</div><div class="ti-body">3 years building healthcare claims ETL pipelines, ML preprocessing scripts, and data governance workflows.</div></div>
+      <div class="ti"><div class="ti-yr">Jan 2023</div><div class="ti-role">Advanced Diploma, Technology Management</div><div class="ti-org">RRC Polytech · Winnipeg</div><div class="ti-body">Technology management with focus on data-driven decision making.</div></div>
+      <div class="ti"><div class="ti-yr">Aug 2025</div><div class="ti-role">Master of Data Science</div><div class="ti-org">University of British Columbia</div><div class="ti-body">MDS program with concurrent RA positions across three UBC research labs.</div></div>
+      <div class="ti"><div class="ti-yr">2025 – 26</div><div class="ti-role">Research Assistant x 3</div><div class="ti-org">UBC · NC4, VGH, Psychiatry</div><div class="ti-body">VR cognitive decline, IHC neuropathology, opioid overdose epidemiology. Best Oral Presentation award.</div></div>
+    </div>
+  </div>
+</section>
+<hr class="r">
+
+<!-- WRITING -->
+<section id="writing" class="sec">
+  <div class="eye rv" data-n="06">Publications and Writing</div>
+  <h2 class="sh rv">Research and <em>Writing.</em></h2>
+  <p class="sp rv">Conference presentations, in-progress papers, and technical writing on Medium.</p>
+  <div class="wg">
+    <div class="wc rv"><div><div class="wtype">Paper — In Progress</div><h3>Opioid Overdose and Acquired Brain Injury (ABI)</h3><p>Co-authored under Dr. Michael Krausz (UBC Psychiatry). Systematic review, data extraction, and full manuscript writing on ABI prevalence in opioid-overdose populations.</p></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);white-space:nowrap;padding-top:2px">In Review</span></div>
+    <div class="wc rv"><div><div class="wtype">Conference Presentation · UBC</div><h3>Stimulant Co-Use in Opioid Agonist Therapy</h3><p>Presented at the PATHS To A Cure Neuroscience Research Conference, UBC. <span style="color:var(--gold)">&#127942; Best Oral Presentation.</span></p></div><span style="font-family:var(--mono);font-size:10px;color:var(--text3);white-space:nowrap;padding-top:2px">2025–26</span></div>
+    <div class="wc rv"><div><div class="wtype">Technical Writing · Medium</div><h3>Data Science, ML and Neuroscience Articles</h3><p>Accessible, in-depth content on ML, clinical data science, and neuroscience for a technical audience.</p></div><a href="https://medium.com/@lakhmangurleen" target="_blank" class="wlink">Read ↗</a></div>
+  </div>
+</section>
+
+<!-- END STRIP -->
+<div style="border-top:1px solid var(--border);padding:48px 60px;max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px">
+  <div>
+    <div style="font-family:var(--serif);font-size:clamp(28px,3.5vw,48px);font-weight:600;letter-spacing:-.02em;line-height:1;color:var(--text)">Let's build something <em style="font-style:italic;color:var(--lav)">meaningful.</em></div>
+    <a href="mailto:gurleenlakhman@gmail.com" style="font-family:var(--mono);font-size:13px;color:var(--text2);text-decoration:none;margin-top:10px;display:inline-block;transition:color .2s" onmouseover="this.style.color='var(--lav)'" onmouseout="this.style.color='var(--text2)'">gurleenlakhman@gmail.com</a>
+  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <a href="https://www.linkedin.com/in/gurleen-lakhman" target="_blank" class="clink li">LinkedIn ↗</a>
+    <a href="https://github.com/gurleenlakhman" target="_blank" class="clink gh">GitHub ↗</a>
+    <a href="https://medium.com/@lakhmangurleen" target="_blank" class="clink md">Medium ↗</a>
+  </div>
+</div>
+
+<footer>
+  <span class="fa">© 2026 Gurleen Kaur</span>
+  <span class="fb">Vancouver, BC · MDS at UBC</span>
+</footer>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function ar(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;ring.style.left=Math.round(rx)+'px';ring.style.top=Math.round(ry)+'px';requestAnimationFrame(ar)})();
+document.querySelectorAll('a,button,.pc,.rc,.wc,.fact').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='48px';ring.style.height='48px';ring.style.opacity='.25'});
+  el.addEventListener('mouseleave',()=>{ring.style.width='28px';ring.style.height='28px';ring.style.opacity='.5'});
+});
+
+/* NEURAL CANVAS */
+const cv=document.getElementById('nc'),ctx=cv.getContext('2d');
+let CW,CH;
+function rsz(){CW=cv.width=cv.offsetWidth;CH=cv.height=cv.offsetHeight}
+rsz();window.addEventListener('resize',()=>{rsz();init()});
+
+const CLS=[
+  {label:'Languages',color:'#a78bfa',skills:['Python','R','SQL','C','Bash']},
+  {label:'ML and AI',color:'#6db8a4',skills:['XGBoost','LightGBM','Transformer','Time Series','Feature Eng']},
+  {label:'Libraries',color:'#e0b86e',skills:['PyTorch','scikit-learn','pandas','OpenCV','tslearn']},
+  {label:'Clinical',color:'#c084fc',skills:['EHR/EMR','QuPath','IHC','Epidemiology','Syst. Review']},
+  {label:'Tools',color:'#60a5fa',skills:['Git','Docker','GCP','PostgreSQL','MongoDB']},
+];
+
+let nodes=[],edges=[];
+function init(){
+  nodes=[];edges=[];
+  const cx=CW/2,cy=CH/2,cr=Math.min(CW,CH)*0.31;
+  CLS.forEach((cl,ci)=>{
+    const a=(ci/CLS.length)*Math.PI*2-Math.PI/2;
+    const hx=cx+Math.cos(a)*cr,hy=cy+Math.sin(a)*cr;
+    nodes.push({x:hx,y:hy,r:16,color:cl.color,label:cl.label,isHub:true,ci,vx:0,vy:0});
+    cl.skills.forEach((sk,si)=>{
+      const sa=a+((si-2)/2.5)*0.7,sr=Math.min(CW,CH)*0.12+Math.random()*16;
+      const ox=hx+Math.cos(sa)*sr,oy=hy+Math.sin(sa)*sr;
+      nodes.push({x:ox,y:oy,ox,oy,r:5.5,color:cl.color,label:sk,isHub:false,ci,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25});
+    });
+  });
+  const hubs=nodes.filter(n=>n.isHub);
+  hubs.forEach((h,i)=>{
+    hubs.forEach((h2,j)=>{if(j>i)edges.push({a:nodes.indexOf(h),b:nodes.indexOf(h2),inter:true})});
+    nodes.forEach((n,ni)=>{if(!n.isHub&&n.ci===h.ci)edges.push({a:nodes.indexOf(h),b:ni,inter:false,ci:h.ci})});
+  });
+}
+init();
+
+let hov=-1,mpx=-999,mpy=-999,pulse=0;
+cv.addEventListener('mousemove',e=>{
+  const r=cv.getBoundingClientRect();mpx=e.clientX-r.left;mpy=e.clientY-r.top;
+  let cl=-1,md=85;
+  nodes.forEach(n=>{if(!n.isHub)return;const d=Math.hypot(n.x-mpx,n.y-mpy);if(d<md){md=d;cl=n.ci}});
+  hov=cl;
+});
+cv.addEventListener('mouseleave',()=>{hov=-1;mpx=-999;mpy=-999});
+
+function draw(){
+  ctx.clearRect(0,0,CW,CH);
+  pulse+=0.015;
+  nodes.forEach(n=>{
+    if(n.isHub)return;
+    n.x+=(n.ox-n.x)*.025+n.vx;n.y+=(n.oy-n.y)*.025+n.vy;
+    n.vx*=.97;n.vy*=.97;
+    if(Math.random()<.003){n.vx+=(Math.random()-.5)*.9;n.vy+=(Math.random()-.5)*.9}
+  });
+  edges.forEach(e=>{
+    const a=nodes[e.a],b=nodes[e.b];
+    const act=hov<0||a.ci===hov||b.ci===hov;
+    if(e.inter){
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+      ctx.strokeStyle=`rgba(167,139,250,${act?.12:.04})`;ctx.lineWidth=.8;ctx.stroke();
+    } else {
+      const cl=CLS[e.ci];
+      const alp=act?.48:.1;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);
+      ctx.strokeStyle=cl.color+Math.floor(alp*255).toString(16).padStart(2,'0');
+      ctx.lineWidth=act?1.3:.6;ctx.stroke();
+      if(act){
+        const t=((pulse*.55)+(e.ci*.38))%1;
+        const px=a.x+(b.x-a.x)*t,py=a.y+(b.y-a.y)*t;
+        ctx.beginPath();ctx.arc(px,py,2.2,0,Math.PI*2);ctx.fillStyle=cl.color;ctx.fill();
+      }
+    }
+  });
+  nodes.forEach(n=>{
+    const act=hov<0||n.ci===hov;
+    if(n.isHub){
+      if(act){
+        const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*3);
+        g.addColorStop(0,n.color+'30');g.addColorStop(1,'transparent');
+        ctx.beginPath();ctx.arc(n.x,n.y,n.r*3,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+      }
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=n.color+(act?'ff':'33');ctx.fill();
+      const pr=n.r+3+Math.sin(pulse+n.ci*.8)*2.5;
+      ctx.beginPath();ctx.arc(n.x,n.y,pr,0,Math.PI*2);
+      ctx.strokeStyle=n.color+(act?'44':'11');ctx.lineWidth=1;ctx.stroke();
+      ctx.font=`400 10px 'DM Mono',monospace`;
+      ctx.fillStyle=`rgba(226,228,240,${act?.95:.15})`;
+      ctx.textAlign='center';ctx.textBaseline='top';
+      ctx.fillText(n.label,n.x,n.y+n.r+8);
+    } else {
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=n.color+(act?'bb':'22');ctx.fill();
+      if(act&&hov>=0){
+        ctx.font=`300 9px 'DM Mono',monospace`;
+        ctx.fillStyle='rgba(226,228,240,.6)';
+        ctx.textAlign='center';ctx.textBaseline='top';
+        ctx.fillText(n.label,n.x,n.y+n.r+3);
+      }
+    }
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* PROJECT FILTER */
+function fp(tag,btn){
+  document.querySelectorAll('.pf').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.querySelectorAll('.pc').forEach(c=>{
+    const show=tag==='all'||c.dataset.t.includes(tag);
+    c.style.transition='opacity .25s,transform .25s';
+    if(show){c.style.display='flex';setTimeout(()=>{c.style.opacity='1';c.style.transform=''},20)}
+    else{c.style.opacity='0';c.style.transform='scale(.96)';setTimeout(()=>{c.style.display='none'},260)}
+  });
+}
+
+/* SCROLL REVEAL */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -24px 0px'});
+document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=`${(i%5)*.07}s`;io.observe(el)});
+
+/* NAV ACTIVE */
+document.querySelectorAll('section[id]').forEach(s=>{
+  new IntersectionObserver(es=>{
+    if(es[0].isIntersecting)document.querySelectorAll('.nl a').forEach(a=>{
+      a.classList.toggle('act',a.getAttribute('href')==='#'+s.id);
+    });
+  },{threshold:.3}).observe(s);
+});
+</script>
+</body>
+</html>
